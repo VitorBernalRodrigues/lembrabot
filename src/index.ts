@@ -2,13 +2,14 @@ import { Client, Events, GatewayIntentBits, userMention } from 'discord.js';
 import { buttonHandlers, commands } from './commands/index.js';
 import { loadConfig } from './config.js';
 import { openDatabase } from './db/database.js';
+import { PollRepository } from './db/polls.js';
 import { ReminderRepository, type Reminder } from './db/reminders.js';
 import { createInteractionRouter } from './interactions/router.js';
 import { ReminderScheduler } from './services/reminder-scheduler.js';
 
 const config = loadConfig();
 const db = openDatabase(config.DATABASE_PATH);
-const ctx = { reminders: new ReminderRepository(db) };
+const ctx = { reminders: new ReminderRepository(db), polls: new PollRepository(db) };
 
 // Slash commands and buttons don't need any privileged intents.
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });

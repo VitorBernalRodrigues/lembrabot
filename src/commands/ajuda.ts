@@ -17,6 +17,10 @@ export const ajuda: Command = {
             '`/lembrete cancelar id:<número>`: cancela um lembrete',
           ].join('\n'),
         },
+        {
+          name: '📊 Enquetes',
+          value: '`/enquete pergunta:<texto> opcoes:<a; b; c>`: cria uma enquete com botões. Clique de novo para tirar o voto.',
+        },
         { name: '🔧 Outros', value: '`/ping`: latência do bot\n`/ajuda`: esta mensagem' },
       )
       .setFooter({ text: 'Formatos de tempo: s, m, h, d, w (segundos, minutos, horas, dias, semanas)' });
