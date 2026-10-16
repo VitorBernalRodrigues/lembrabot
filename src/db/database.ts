@@ -19,6 +19,27 @@ export const MIGRATIONS: readonly string[] = [
   CREATE INDEX idx_reminders_pending ON reminders (due_at) WHERE delivered_at IS NULL;
   CREATE INDEX idx_reminders_user ON reminders (user_id);
   `,
+  `
+  CREATE TABLE polls (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    guild_id    TEXT,
+    channel_id  TEXT    NOT NULL,
+    message_id  TEXT,
+    author_id   TEXT    NOT NULL,
+    question    TEXT    NOT NULL,
+    options     TEXT    NOT NULL,
+    created_at  INTEGER NOT NULL,
+    closed_at   INTEGER
+  );
+
+  CREATE TABLE poll_votes (
+    poll_id      INTEGER NOT NULL REFERENCES polls (id) ON DELETE CASCADE,
+    user_id      TEXT    NOT NULL,
+    option_index INTEGER NOT NULL,
+    voted_at     INTEGER NOT NULL,
+    PRIMARY KEY (poll_id, user_id)
+  );
+  `,
 ];
 
 /** Applies pending migrations, tracking the schema version in SQLite's user_version. */
